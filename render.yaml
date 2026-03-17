@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: nwu-study-planner
+    env: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: nwu-study-planner-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: nwu-study-planner-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: nwu-study-planner-db
+          property: password
+
+databases:
+  - name: nwu-study-planner-db
+    plan: free
+    databaseName: nwu_study_planner
+    user: nwu_study_planner_user
+
